@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include <stdint.h>
 
 struct Node {
     int data;
@@ -27,7 +28,7 @@ void create(int A[],int n)
 
 int maximum(struct Node* p) 
 {
-    int max = p->data;
+    int max = INT32_MIN;
     while (p) {
         if (p->data > max) {
             max = p->data;
@@ -37,6 +38,20 @@ int maximum(struct Node* p)
     return max;
 }
 
+int Rmax (struct Node * p)
+{
+    int x=0 ;
+    if (p==0)
+        return INT32_MIN;
+    x=Rmax(p->next);
+    if(x>p->data)
+    {
+        return x;
+    }else
+    {
+        return p->data;
+    }
+}
 
 
 int main() {
