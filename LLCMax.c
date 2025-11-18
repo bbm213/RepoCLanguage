@@ -26,6 +26,16 @@ void create(int A[],int n)
     }
 }
 
+void Display(struct Node *p)
+{
+    while (p!=NULL)
+    {
+        printf("%d",p->data);
+        p=p->next; 
+    }
+    
+}
+
 struct Node * searching(struct Node *p, int key)
 {
 while (p!=NULL)
@@ -77,17 +87,55 @@ int Rmax (struct Node * p)
     }
 }
 
+int count (struct Node *p)
+{
+    int l=0;
+    while (p!=NULL)
+    {
+        l++;
+        p=p->next;
+    }
+    return l;
+}
+
+void Insert(struct Node *p, int index, int value)
+{
+    struct Node *t;
+    int i;
+    if (index<0 || index> count(p))
+        return;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=value;
+
+    if (index==0)
+    {
+        t->next = first;
+        first=t;
+    }
+    else
+    {
+        for ( i = 0; i < index-1; i++)
+            p=p->next;
+        t->next=p->next;
+        p->next=t;   
+    }
+}
+
 
 int main() {
     struct Node *temp;
     int A[] = {1, 2, 3, 6, 5};
     create(A, 5);
+     
+    Insert(first,0,0);
+    Display(first);
+    
     printf("Maximum Element: %d\n", maximum(first));
     temp= searching(first,4);
     if (temp!=NULL)
         printf("Key is FOund %d",temp->data);
     else
         printf("Key is not Found");
-    
+        
     return 0;
 }
